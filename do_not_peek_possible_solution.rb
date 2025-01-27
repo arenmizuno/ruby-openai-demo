@@ -1,7 +1,7 @@
 require "openai"
 require "dotenv/load"
 
-client = OpenAI::Client.new(api_key: ENV.fetch("OPENAI_API_KEY"))
+client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
 # Set up the message list with a system message
 message_list = [
@@ -27,7 +27,7 @@ while user_input != "bye"
     message_list.push({ "role" => "user", "content" => user_input })
 
     # Send the message list to the API
-    api_response = client.completions.create(
+    api_response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo",
         messages: message_list
